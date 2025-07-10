@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Speech to Text (Google)</title>
+</head>
+
+<body>
+  <input type="file" id="audioInput" accept="audio/*"><br><br>
+  <button onclick="transcribeAudioFile()">Transcribe from a File</button><br><br>
+  <button onclick="transcribeAudioMic()">Transcribe with a Mic</button><br>
+  <p id="transcriptOutput"></p>
+
+  <script>
+    async function transcribeAudioFile() {
+      const TEST_STT_URL = 'http://127.0.0.1:3000/stt';
+      const STT_URL = 'https://key-manager-462519.uc.r.appspot.com/stt';
+
+      const fileInput = document.getElementById("audioInput");
+      if (fileInput.files.length === 0) {
+        console.log("no file selected");
+        document.getElementById("transcriptOutput").textContent = "no file selected";
+        return;
+      }
+
+      let formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      // formData.append("model", "whisper-1");
+      // formData.append('language', 'zh'); // optional but helpful
+
+      try {
+        const response = await fetch(TEST_STT_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+        document.getElementById("transcriptOutput").textContent = result.text + ', ' + result.pinyin;
+      } catch (error) {
+        console.error('Error with Google STT API:', error);
+      }
+    }
+
+    async function transcribeAudioMic() {
+      const TEST_STT_URL = 'http://127.0.0.1:3000/stt';
+      const STT_URL = 'https://learner-gateway.uc.r.appspot.com/stt';
+
+      try {
+        let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        let mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm; codecs=opus' });
+        let audioChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          const formData = new FormData();
+          formData.append('file', audioBlob, 'audio.webm');
+          // formData.append('model', 'whisper-1');
+          // formData.append('language', 'zh');
+
+          try {
+            const response = await fetch(TEST_STT_URL, {
+              method: 'POST',
+              body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById("transcriptOutput").textContent = result.text + ', ' + result.pinyin;
+          } catch (error) {
+            console.error('Error with Google STT API:', error);
+          }
+        };
+
+        mediaRecorder.start();
+        setTimeout(() => {
+          mediaRecorder.stop();
+        }, 8000);
+
+      } catch (error) {
+        console.error('Microphone access error:', error);
+      }
+    }
+  </script>
+</body>
+
+</html>

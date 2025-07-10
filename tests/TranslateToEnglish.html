@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Translate (OpenAI)</title>
+</head>
+
+<body>
+  <div style="margin-top: 20px">
+    <textarea id="inputText" rows="3" cols="50">今天的天气不错</textarea><br>
+    <button onclick="openaiTranslate()">Translate to English</button>
+    <p id="translation"></p>
+  </div>
+
+  <script>
+    const TRANSLATE_URL = 'https://learner-gateway.uc.r.appspot.com/translate';
+    // const TRANSLATE_URL = 'http://127.0.0.1:3000/translate';
+
+    /**
+     * Translate a Chinese text string to English naturally and keep all the HTML structure unchanged, 
+     * only translate the text content. Skip the entire <head> tag. The input text must be shorter than
+     * 16K tokens (16K * 4 = 64K chars 32K Chinese characters).
+     * @param {*} text 
+     */
+    async function openaiTranslate() {
+      let translation = {
+        translated: true,
+        text: ''
+      };
+      const text = document.getElementById('inputText').value;
+      const element = document.getElementById('translation');
+
+      // create a message with an instruction of the translation
+      // use nature languare to create the instructions, OpenAI knows how to interprate.
+      const messages = [
+        {
+          role: "system",
+          content: "You are a professional translator. Translate all visible Simplified Chinese text into natural English while preserving ALL HTML tags exactly as-is. Do not translate anything inside HTML tags. Do not translate tags themselves. Skip the <head> section completely. "
+        },
+        {
+          role: "user",
+          content: text
+        }
+      ];
+
+      try {
+        const response = await fetch(TRANSLATE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            messages: messages,
+            temperature: 0.3
+          })
+        });
+
+        const data = await response.json();
+        translation.translated = true;
+        translation.text = data.choices[0].message.content;
+        element.textContent = translation.text;
+      } catch (error) {
+        translation.translated = false;
+        translation.text = "Error: " + error.message;
+        element.textContent = translation.text;
+      }
+    }
+  </script>
+</body>
+
+</html>

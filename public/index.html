@@ -1,0 +1,54 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Learners API Gateway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            color: #0066cc;
+        }
+
+        ul {
+            line-height: 1.8em;
+        }
+
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Learners API Gateway</h1>
+    <p>This server provides the following backend services:</p>
+
+    <ul>
+        <li><strong>Text-to-Speech (TTS):</strong> <code>POST /tts</code></li>
+        <li><strong>Speech-to-Text (STT):</strong> <code>POST /stt</code></li>
+        <li><strong>Pinyin Conversion:</strong> <code>POST /pinyin</code></li>
+        <li><strong>Translation:</strong> <code>POST /translate</code></li>
+    </ul>
+
+    <p>Each endpoint expects a JSON payload with the necessary parameters.</p>
+    <p>Example request (for <code>/pinyin</code>):</p>
+
+    <pre><code>{
+  "text": "你好"
+}</code></pre>
+<!-- 
+    <p>For details, see the <a href="https://github.com/your-org/kids-learn-chinese-docs">API Documentation</a> (or keep
+        this link local if needed).</p> -->
+</body>
+
+</html>
