@@ -17,8 +17,8 @@
     // Calls to Google TTS service to transform text to speech (Good quality)
     async function getPinyin() {
 
-      const TEST_TTS_URL = 'http://127.0.0.1:3000/pinyin';
-      const TTS_URL = 'https://learner-gateway.uc.r.appspot.com/pinyin';
+      const TTS_URL = 'http://127.0.0.1:3000/pinyin';
+      // const TTS_URL = 'https://learner-gateway.uc.r.appspot.com/pinyin';
       const text = document.getElementById('inputText').value;
       const requestBody = {
         text: text
@@ -26,7 +26,7 @@
 
       try {
         // const response = await fetch(TTS_URL, {
-        const response = await fetch(TEST_TTS_URL, {
+        const response = await fetch(TTS_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

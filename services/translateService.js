@@ -1,15 +1,13 @@
 import config from '../config/openai.js';
 /**
- * Calls to OpenAI API to translate Chinese text into English.
+ * Calls to the OpenAI API to translate Chinese text into English.
  * This is much better than Google's translate service with 
  * much higher quality of translation and it is able to handle
  * much longer text (16k tokens).
- * The endpoint: host/api/translate
  */
 export async function handleTranslate(req, res) {
+  console.log('Translating Chinese into English');
   const { messages } = req.body;
-  // console.log('messages: ', messages);
-  // console.log('translateUrl: ', process.env.OPENAI_TRANSLATE_URL, config.translateUrl);
 
   try {
     const response = await fetch(config.translateUrl, {
@@ -26,9 +24,10 @@ export async function handleTranslate(req, res) {
     });
 
     const data = await response.json();
+    console.log('Translation is done');
     res.json(data);
   } catch (err) {
-    console.log('OpenAI translation failed, ', err.message);
-    res.status(500).json({ error: err.message });
+    console.error('OpenAI translation failed, ', err.message);
+    res.status(500).json({ error: 'OpenAI translation failed, ' + err.message });
   }
 }

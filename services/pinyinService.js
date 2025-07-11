@@ -1,9 +1,8 @@
 import { getPinyin } from './utils.js';
 
 /**
- * Calls to Google Translation service to get pinyin of a Chinese text. 
+ * Calls to the Google Translation service to get pinyin of a Chinese text. 
  * Don't use its translation result, just use the pinyin part.
- * The endpoint: host/pinyin
  */
 export async function handlePinyin(req, res) {
 

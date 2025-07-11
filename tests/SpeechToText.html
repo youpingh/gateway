@@ -13,9 +13,10 @@
   <p id="transcriptOutput"></p>
 
   <script>
+    const STT_URL = 'http://127.0.0.1:3000/stt';
+    // const STT_URL = 'https://key-manager-462519.uc.r.appspot.com/stt';
+
     async function transcribeAudioFile() {
-      const TEST_STT_URL = 'http://127.0.0.1:3000/stt';
-      const STT_URL = 'https://key-manager-462519.uc.r.appspot.com/stt';
 
       const fileInput = document.getElementById("audioInput");
       if (fileInput.files.length === 0) {
@@ -30,7 +31,7 @@
       // formData.append('language', 'zh'); // optional but helpful
 
       try {
-        const response = await fetch(TEST_STT_URL, {
+        const response = await fetch(STT_URL, {
           method: "POST",
           body: formData
         });
@@ -43,9 +44,7 @@
     }
 
     async function transcribeAudioMic() {
-      const TEST_STT_URL = 'http://127.0.0.1:3000/stt';
-      const STT_URL = 'https://learner-gateway.uc.r.appspot.com/stt';
-
+ 
       try {
         let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         let mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm; codecs=opus' });
@@ -65,7 +64,7 @@
           // formData.append('language', 'zh');
 
           try {
-            const response = await fetch(TEST_STT_URL, {
+            const response = await fetch(STT_URL, {
               method: 'POST',
               body: formData
             });
