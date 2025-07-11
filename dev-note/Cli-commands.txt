@@ -1,0 +1,95 @@
+Frequently used GIT commands
+
+Assume the root branch is master and it's cloned locally
+
+// check out the dev branch without the code of any other child branches
+git remote update origin –-prune
+git checkout dev (or any other branch name)
+
+// create a feature branch that is branch out from dev
+// note that the new branch is not visible from repo until the first push
+git checkout –b new-branch
+
+// make code change and check in
+git pull origin youping (do this first if some other people work on the same branch)
+get status
+git add file-pattern
+git commit -m 'comments'
+git push
+
+// merge to dev branch
+git pull origin dev
+git merge dev
+
+// fix the merge issues if there are some and commit and push the changes
+// build the entire services project to be sure the new changes are buildable and tested
+git commit -m 'comments'
+git push
+
+// create a pull request from the repo
+// source youping target dev
+// add Youping as a reviewer and he will review and merge the changes to the dev branch
+
+----------------------------------------------------------------------------------------
+Google Projects (AppEngine, Static HTML/JavaScript)
+Login to the Google cloud console, create a new project before doing anything.
+
+Frequently used gcloud commands
+
+	gcloud auth login
+	gcloud config list
+	gcloud config configurations list
+
+	// create a gcloud configuration that associated with an AppEngine project
+	gcloud config configurations create ConfigName --project ProjectId 
+	
+	// activate a gcloud configuration
+	gcloud config configurations activate ConfigName
+	
+	// set the current project to an AppEngine projecct
+	gcloud config set project ProjectName
+	
+	// deploy a project (first of all, set the current project and active the config)
+	gcloud app deploy -v num (num: the version number)
+
+List all the configurations and the mapped projects
+	gcloud config configurations list
+
+Config Name  Project Name
+----------------------------------------------------------------------------------------
+home              great-wall-chinese-academy (www.greatwallchineseacademy.org)
+textbooks       gwca-textbook (https://storage.googleapis.com/gwca-textbook/index.html)
+proxy              gwca-proxy (https://gwca-proxy.uc.r.appspot.com)
+
+homework      gwca-course-work (stopped)
+services          gwca-services (stopped)
+textbooks       gwca-classroom (stopped)
+
+----------------------------------------------------------------------------------------
+Build and deploy an Angular project
+	cd …/home
+	npm run-script build
+	gcloud app deploy -v %1  (Deploy the application. %1 is the version number)
+
+Deploy a proxy server project
+	cd …/key-manager
+	gcloud app deploy
+	
+Deploy a static HTML/JavaScript project
+	cd …/textbooks
+	./deploy-textbook.sh (some commands in this script)
+
+----------------------------------------------------------
+The following projects are no longer in use
+----------------------------------------------------------
+Build and run a spring-boot app locally
+	cd …/services
+	mvn -Dmaven.test.skip=true -P local clean package appengine:run
+
+Build and deploy a spring-boot project
+	cd …/services
+	mvn -Dmaven.test.skip=true -P [test|prod] clean package appengine:deploy
+	
+Eclipse AppEngine
+install plug-in Google Cloud Tools
+gcloud components install app-engine-java
