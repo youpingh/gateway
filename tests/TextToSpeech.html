@@ -17,8 +17,8 @@
     // Calls to Google TTS service to transform text to speech (Good quality)
     async function textToSpeech() {
 
-      const TTS_URL = 'http://127.0.0.1:3000/tts';
-      // const TTS_URL = 'https://learner-gateway.uc.r.appspot.com/tts';
+      // const TTS_URL = 'http://127.0.0.1:3000/tts';
+      const TTS_URL = 'https://learner-gateway.uc.r.appspot.com/tts';
       const langCode = 'cmn-CN';
       const langName = 'cmn-TW-Wavenet-A'; // Mandarin Chinese , female
       const text = document.getElementById('inputText').value;
