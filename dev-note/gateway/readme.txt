@@ -10,3 +10,6 @@ URL: https://learner-gateway.uc.r.appspot.com/
 -- Dev Notes:
 This is a Node.js project.
 It is used by blogger, klc to hide all the APP Kyes. It is a backend server to provide some RESTful services, like STT, TTS, Translate, Pinyin. Additionally, Firebase, User Authentication.
+
+-- Run
+node index.js
