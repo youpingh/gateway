@@ -38,7 +38,7 @@ KLC App
 - Word collection customization by user
 - Testing page that connects to the progress record 
 - Add a story with a shadow reading component （generated video？）
-- Add a utility of making phrase/sentence 组词、造句
+- Add a utility of making phrase/sentence/paragraph 组词、造句、段落
 
 Re-categorize the characters
 
@@ -56,8 +56,8 @@ Admin Tools (admin-tools - a Node.js app)
 
 Database Management
 
-- Download database collections to JSON files (backup, batch editing, etc.)
-- Set custom claims (configure user permission, role)
+- Download database collections to JSON files (backup, batch editing, etc.) ✅
+- Set custom claims (configure user permission, role) ✅
 
 Image Generation
 
@@ -81,4 +81,4 @@ Merge the generated images to KLC App
 - Update the database collections: categories, words. (klc-admin -> upload)✅
 - Test - issues: changing level doesn't update the category list (fixed), setDenoting level 2 images are missing ✅
 - Changes - add code to hide the category/level list when click anywhere
-- Deploy and check-in (all three projects: klc-angular, klc-admin, admin-tools).
+- Deploy and check-in (all three projects: klc-angular, klc-admin, admin-tools). ✅
