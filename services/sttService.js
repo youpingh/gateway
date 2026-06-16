@@ -1,5 +1,5 @@
 import config from '../config/google.js';
-import { getPinyin } from './utils.js';
+import { getTranslation } from './utils.js';
 
 /**
  * Calls to the Google STT service to convert speech in Chinese to text. 
@@ -69,7 +69,7 @@ export async function handleSTT(req, res) {
     // if the result is ok, get the pinyin of it
     if (data.results) {
       const text = data.results.map(result => result.alternatives[0].transcript).join(" ");
-      const pinyin = await getPinyin(text);
+      const pinyin = await getTranslation(text);
       console.log('Converted text with pinyin:', pinyin);
       if (pinyin.status) {
         res.json(pinyin);

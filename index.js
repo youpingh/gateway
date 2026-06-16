@@ -4,7 +4,7 @@
  * that require an APP key. The purpose of this proxy is to hide
  * all the API keys for the simple HTML/JavaScript applications to
  * avoid exposing their API keys (check in the code to an open
- * souce project, like GitHub).
+ * source project, like GitHub).
  * 
  * The API keys are stored in the .env file and it is not checked in.
  */
@@ -18,6 +18,7 @@ import ttsRoutes from './routes/tts.js';
 import sttRoutes from './routes/stt.js';
 import pinyinRoutes from './routes/pinyin.js';
 import translateRoutes from './routes/translate.js';
+import googleTranslateRoutes from './routes/googleTranslate.js';
 // import userRoutes from './routes/user.js';
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.use('/tts', ttsRoutes);
 app.use('/stt', sttRoutes);
 app.use('/pinyin', pinyinRoutes);
 app.use('/translate', translateRoutes);
+app.use('/googleTranslate', googleTranslateRoutes);
 // app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 3000;

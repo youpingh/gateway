@@ -1,9 +1,9 @@
 import { getTranslation } from './utils.js';
 
 /**
- * Calls to the Google Translation service to get pinyin of a Chinese text. 
+ * Calls to the Google Translation service to get the English translation of a Chinese text. 
  */
-export async function handlePinyin(req, res) {
+export async function handleGoogleTranslate(req, res) {
 
   const results = await getTranslation(req.body.text);
   if (results.status) {
