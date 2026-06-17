@@ -24,7 +24,7 @@ export async function getTranslation(text) {
     const data = await response.json();
     console.log('data:', data);
     if (data.sentences && data.sentences.length > 0) {
-      const translation = data.sentences[0].trans.trim();
+      const translation = toMultiSentenceCase(data.sentences[0].trans.trim());
       const textPinyin = data.sentences[1].src_translit.trim();
       results.pinyin = textPinyin;
       results.trans = translation;
@@ -53,6 +53,17 @@ export async function getTranslation(text) {
   return results;
 }
 
+function toMultiSentenceCase(str) {
+  if (!str) return '';
+  
+  // 1. Lowercase the entire string first
+  const lower = str.toLowerCase();
+  
+  // 2. Capitalize the first letter of each sentence
+  return lower.replace(/(^\s*|[.!?]\s+)([a-z])/g, (match, separator, letter) => {
+    return separator + letter.toUpperCase();
+  });
+}
 
 /* The returned JSON object
   data: {
